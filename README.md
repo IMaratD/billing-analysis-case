@@ -51,7 +51,47 @@ The identified issues could potentially lead to:
 - identified inconsistencies in business flows
 - participated in investigation of critical billing issues
 
+---
 
+## Example SQL Checks
+
+Examples of SQL queries that can be used to validate billing consistency and detect anomalies.
+
+```sql
+-- Detect duplicated invoices
+
+SELECT
+    invoice_id,
+    COUNT(*) as duplicates
+FROM invoices
+GROUP BY invoice_id
+HAVING COUNT(*) > 1;
+```
+
+```sql
+-- Detect duplicated subscriptions
+
+SELECT
+    customer_id,
+    subscription_type,
+    COUNT(*) as subscriptions_count
+FROM subscriptions
+GROUP BY customer_id, subscription_type
+HAVING COUNT(*) > 1;
+```
+
+See full SQL examples in:
+`sql/billing_checks.sql`
+
+---
+
+## Recommendations
+
+- Introduce stricter validation for billing and subscription states.
+- Improve access control checks for partner and white-label accounts.
+- Add automated anomaly detection for duplicated invoices and subscriptions.
+- Synchronize billing status with actual backup service activity.
+- Expand monitoring of billing-related business metrics and inconsistencies.
 
 ---
 
@@ -70,3 +110,68 @@ The identified issues could potentially lead to:
 - разграничению доступа
 - отображению инвойсов
 - анализу бизнес-рисков
+
+---
+
+## Основные проблемы
+
+### 1. Проблемы отображения инвойсов
+Некоторые пользователи могли видеть инвойсы, которые им не принадлежали.
+
+### 2. Недостатки разграничения доступа
+Часть биллинговых страниц была доступна по прямым ссылкам.
+
+### 3. Нестабильность биллинга
+Периодически возникали сбои, влияющие на корректность выставления счетов и оплат.
+
+### 4. Сложная партнёрская логика
+Сценарии partner и white-label пользователей имели повышенную сложность и высокий риск логических несоответствий.
+
+---
+
+## Бизнес-риски
+
+Выявленные проблемы могли приводить к:
+- финансовым потерям;
+- жалобам клиентов;
+- рискам безопасности;
+- ошибкам биллинга и подписок.
+
+---
+
+## Мой вклад
+
+- анализировал сценарии оплаты и подписок;
+- проверял корректность бизнес-логики;
+- выявлял логические противоречия и аномалии;
+- участвовал в исследовании критических проблем биллинга.
+
+---
+
+## Примеры SQL-проверок
+
+Примеры SQL-запросов для проверки корректности биллинга и поиска аномалий.
+
+```sql
+-- Detect duplicated invoices
+
+SELECT
+    invoice_id,
+    COUNT(*) as duplicates
+FROM invoices
+GROUP BY invoice_id
+HAVING COUNT(*) > 1;
+```
+
+Полный набор SQL-проверок:
+`sql/billing_checks.sql`
+
+---
+
+## Рекомендации
+
+- Усилить валидацию состояний подписок и биллинга;
+- Улучшить проверки разграничения доступа;
+- Добавить автоматический поиск аномалий в инвойсах и подписках;
+- Синхронизировать биллинг с фактическим состоянием сервисов;
+- Расширить мониторинг бизнес-метрик и ошибок биллинга.

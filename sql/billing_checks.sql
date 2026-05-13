@@ -15,21 +15,30 @@ SELECT
     subscription_type,
     COUNT(*) as subscriptions_count
 FROM subscriptions
-GROUP BY customer_id, subscription_type
+GROUP BY
+    customer_id,
+    subscription_type,
+    subscription_status
 HAVING COUNT(*) > 1;
 
 
 
--- Detect restricted billing pages visible to partner users
+-- Detect invoice visibility issues for restricted partner accounts
 
 SELECT
-    invoice_id,
-    account_id,
-    owner_type,
-    visible_for_user
-FROM billing_invoices
-WHERE owner_type IN ('partner_user', 'whitelabel_user')
-AND visible_for_user = true;
+    u.user_id,
+    p.partner_role,
+    i.invoice_id
+FROM users u
+JOIN partners p
+    ON u.partner_id = p.partner_id
+JOIN invoices i
+    ON i.customer_id = u.user_id
+WHERE p.partner_role IN (
+    'whitelabel',
+    'integrated'
+)
+AND i.visible_for_user = true;
 
 
 -- Detect payment history ownership mismatch
@@ -83,5 +92,5 @@ Business impact of detected anomalies:
 5. Unauthorized access to payment history may expose
    sensitive financial information to unrelated users.
 
-6. Billing inactive backup services may cause revenue inconsistencies, customer complaints, and increased support load.
+6. Billing inactive backup services may lead to revenue inconsistencies, customer complaints and increased support load.
 */
