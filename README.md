@@ -18,6 +18,19 @@ The analysis focused on:
 
 ---
 
+## Billing Inheritance Logic
+
+Partner-related billing configuration was inherited through the hierarchy.
+
+Examples:
+- reseller billing settings could inherit distributor configuration;
+- whitelabel structures inherited branding and billing restrictions;
+- integrated accounts had additional visibility and access limitations.
+
+Affiliate accounts were handled separately and used independent billing configuration.
+
+---
+
 ## Main Problems Identified
 
 ### 1. Invoice visibility issues
@@ -95,21 +108,51 @@ See full SQL examples in:
 
 ---
 
+## Additional Materials
+
+Supporting materials related to billing analysis and anomaly investigation:
+
+- SQL validation checks → `sql/billing_checks.sql`
+- Mock billing dataset → `sql/mock_billing_data.sql`
+- Billing metrics examples → `metrics/billing_metrics.sql`
+- Analytical report example → `reports/billing_metrics_example.md`
+- Billing entity model → `docs/data_model.md`
+- Billing hierarchy diagram → `diagrams/billing_hierarchy.md`
+- Billing anomaly investigation → `reports/anomaly_investigation.md`
+- Billing monitoring strategy → `docs/monitoring_strategy.md`
+
+---
+
+
+
 # Анализ биллинга и платёжных сценариев
 
 ## Описание
 
-Кейс посвящён анализу биллинговой системы SaaS-продукта с несколькими типами пользователей:
+Кейс описывает анализ биллинговой системы SaaS-продукта с несколькими уровнями партнёрской и пользовательской иерархии:
 - прямые клиенты
 - партнёры
-- white-label пользователи
+- white-label клиенты
 
-Основное внимание уделялось:
+В рамках анализа исследовались:
 - логике биллинга
 - сценариям оплаты
 - разграничению доступа
 - отображению инвойсов
 - анализу бизнес-рисков
+
+---
+
+## Логика наследования биллинга
+
+Настройки биллинга и ограничения доступа наследовались по партнёрской иерархии.
+
+Примеры:
+- реселлеры могли наследовать настройки биллинга дистрибьютора;
+- white-label структуры наследовали ограничения брендинга и биллинга;
+- integrated-аккаунты имели дополнительные ограничения видимости и доступа.
+
+Affiliate-партнёры обрабатывались отдельно и использовали независимую конфигурацию биллинга.
 
 ---
 
@@ -131,20 +174,20 @@ See full SQL examples in:
 
 ## Бизнес-риски
 
-Выявленные проблемы могли приводить к:
-- финансовым потерям;
-- жалобам клиентов;
-- рискам безопасности;
-- ошибкам биллинга и подписок.
+Выявленные проблемы создавали риски:
+- финансовых потерь;
+- жалоб клиентов;
+- безопасности;
+- ошибок биллинга и подписок.
 
 ---
 
 ## Мой вклад
 
-- анализировал сценарии оплаты и подписок;
-- проверял корректность бизнес-логики;
+- анализировал сложные сценарии биллинга и подписок;
+- валидировал бизнес-логику и сценарии доступа;
 - выявлял логические противоречия и аномалии;
-- участвовал в исследовании критических проблем биллинга.
+- участвовал в расследовании критических инцидентов биллинга.
 
 ---
 
@@ -175,3 +218,18 @@ HAVING COUNT(*) > 1;
 - Добавить автоматический поиск аномалий в инвойсах и подписках;
 - Синхронизировать биллинг с фактическим состоянием сервисов;
 - Расширить мониторинг бизнес-метрик и ошибок биллинга.
+
+---
+
+## Дополнительные материалы
+
+Материалы, связанные с анализом биллинга и исследованием аномалий:
+
+- SQL-проверки биллинга → `sql/billing_checks.sql`
+- Mock dataset для сценариев биллинга → `sql/mock_billing_data.sql`
+- Примеры расчёта billing-метрик → `metrics/billing_metrics.sql`
+- Пример аналитического отчёта → `reports/billing_metrics_example.md`
+- Модель сущностей биллинга → `docs/data_model.md`
+- Диаграмма партнёрской иерархии → `diagrams/billing_hierarchy.md`
+- Исследование billing-анomalies → `reports/anomaly_investigation.md`
+- Стратегия мониторинга биллинга → `docs/monitoring_strategy.md`

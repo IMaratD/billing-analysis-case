@@ -16,6 +16,7 @@ Represents system users.
 | partner_id | Related partner (nullable) |
 | account_type | direct / partner |
 | account_status | active / inactive |
+| billing_owner_id | Parent billing account |
 
 ---
 
@@ -26,9 +27,17 @@ Represents partner hierarchy and reseller relationships.
 | Field | Description |
 |---|---|
 | partner_id | Partner identifier |
-| partner_role | reseller / distributor / affiliate / whitelabel / integrated |
+| partner_role | distributor / reseller / affiliate |
+| branding_type | direct / whitelabel / integrated |
 | parent_partner_id | Linked distributor (if exists) |
-| access_level | portal / limited |
+| access_level | full / limited / hidden |
+
+---
+
+### Affiliate logic
+
+Affiliate partners did not manage customer billing directly.
+Their users behaved similarly to direct customers and entered billing information independently.
 
 ---
 
@@ -79,3 +88,16 @@ Represents access validation for payment history pages.
 | user_id | Current user |
 | invoice_owner_id | Invoice owner |
 | access_type | allowed / unauthorized |
+
+---
+
+## Hierarchy Notes
+
+Partner relationships followed strict inheritance rules.
+
+Examples:
+- direct distributor → direct reseller → direct users
+- whitelabel distributor → whitelabel reseller → whitelabel users
+- integrated reseller → integrated users
+
+Branding type and billing behavior were inherited across hierarchy levels.
