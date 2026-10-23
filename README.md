@@ -1,4 +1,4 @@
-# Billing System Analysis (CloudAlly)
+# Billing System Analysis
 
 ## Overview
 
