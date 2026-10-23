@@ -1,4 +1,4 @@
-# Billing System Analysis
+# Billing Logic & Payment Flows Analysis
 
 ## Overview
 
